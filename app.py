@@ -84,25 +84,27 @@ if st.button("Generate"):
             st.subheader("Generated Content:")
             st.write(content)
 
+
             # Generate images
             st.subheader("Generated Images:")
-            image_prompt = f"{topic}, {style} style"
-            images = [generate_image(image_prompt)] * num_images  # Repeat image generation for the desired number of images
-
-            if images:
-                for i, image in enumerate(images):
+            images = []
+            for i in range(num_images):
+                unique_prompt = f"{topic}, {style} style, image {i + 1}"
+                image = generate_image(unique_prompt)  # Ensure the prompt is unique for each image
+                if image:
                     st.image(image, caption=f"Generated Image {i + 1}", use_column_width=True)
-            else:
-                st.error("Failed to generate images.")
-                st.stop()  # Stop the app if no images are generated
+                    images.append(image)
+                else:
+                    st.warning(f"Failed to generate Image {i + 1}")
 
-            # Combine content and images for download (DOCX)
+            # Generate DOCX file
             doc_buffer = convert_to_docx(content, images)
-
-            # Provide download button for DOCX
-            st.download_button(
-                label="Download as DOCX",
-                data=doc_buffer,
-                file_name="generated_content_and_images.docx",
-                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            )
+            if doc_buffer:
+                st.download_button(
+                    label="Download as DOCX",
+                    data=doc_buffer,
+                    file_name="generated_content_and_images.docx",
+                    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                )
+            else:
+                st.error("Failed to generate DOCX file.")
