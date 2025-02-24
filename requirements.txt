@@ -4,5 +4,4 @@ requests
 python-dotenv
 langchainhub
 langchain_google_genai
-docx
 langchain

@@ -18,7 +18,7 @@ HUGGING_FACE_API_KEY = os.getenv("HUGGING_FACE_API_KEY")
 def generate_content(topic, language, tone, content_format, length, style, audience, purpose):
     try:
         llm = ChatGoogleGenerativeAI(
-            model="gemini-1.5-pro-002",
+            model="gemini-1.5-pro",
             temperature=1,
             api_key=GOOGLE_API_KEY
         )
@@ -61,7 +61,7 @@ def generate_image(prompt):
             data = {"inputs": prompt}
 
             # Send request to the Hugging Face API
-            model_name="CompVis/stable-diffusion-v1-4"
+            model_name="strangerzonehf/Flux-Midjourney-Mix2-LoRA"
 
             response = requests.post(
                 f"https://api-inference.huggingface.co/models/{model_name}",

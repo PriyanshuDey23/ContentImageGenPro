@@ -1,4 +1,4 @@
-import os
+
 import streamlit as st
 from ContentImage.helper import *
 from ContentImage.utils import *
@@ -8,18 +8,19 @@ from ContentImage.utils import *
 # Streamlit UI
 st.set_page_config(
     page_title="Content & Image Generator",
-    page_icon=":notebook_with_decorative_cover:",
-    layout="centered"
+    page_icon=":art:",
+    layout="wide"
 )
 
-st.header("Content & Image Generator")
+st.title("📜 Content & Image Generator")
+st.write("Create compelling content and images effortlessly.")
 
 # User inputs
 topic = st.text_input("Enter the Topic", placeholder="e.g., The role of AI in education")
 
 # Side bar :-
 with st.sidebar:
-    st.title("Parameters")
+    st.title("⚙️ Parameters")
     # Language Input with "Other" option
     language = st.selectbox("Language", ["English", "Other (please specify)"])
     if language == "Other (please specify)":
@@ -74,19 +75,19 @@ with st.sidebar:
 
 
 # Function to generate images and display them
-if st.button("Generate"):
+if st.button("🚀 Generate Content & Images"):
     if not topic.strip():
         st.error("Please enter a topic!")
     else:
         with st.spinner("Generating content and images..."):
             # Generate content
             content = generate_content(topic, language, tone, content_format, length, style, audience, purpose)
-            st.subheader("Generated Content:")
+            st.subheader("📄 Generated Content:")
             st.write(content)
 
 
             # Generate images
-            st.subheader("Generated Images:")
+            st.subheader("🖼️ Generated Images:")
             images = []
             for i in range(num_images):
                 unique_prompt = f"{topic}, {style} style, image {i + 1}"
@@ -101,7 +102,7 @@ if st.button("Generate"):
             doc_buffer = convert_to_docx(content, images)
             if doc_buffer:
                 st.download_button(
-                    label="Download as DOCX",
+                    label="📥 Download as DOCX",
                     data=doc_buffer,
                     file_name="generated_content_and_images.docx",
                     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"

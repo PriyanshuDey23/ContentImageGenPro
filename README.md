@@ -1,5 +1,7 @@
 # Content & Image Generator
 
+![](1.png)
+
 **Content & Image Generator** is a powerful Streamlit-based web application that combines cutting-edge language models and image generation technology. It generates dynamic text content using the **Google Generative AI model** and creates images using **Stable Diffusion via the Hugging Face API**. Users can then download both the generated content and images as a DOCX file for convenience.
 
 ## Key Features
